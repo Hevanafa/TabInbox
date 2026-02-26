@@ -1,0 +1,29 @@
+object Form2: TForm2
+  Left = 1850
+  Height = 124
+  Top = 250
+  Width = 172
+  Caption = 'Form2'
+  ClientHeight = 124
+  ClientWidth = 172
+  Font.CharSet = ANSI_CHARSET
+  Font.Height = -13
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
+  OnCloseQuery = FormCloseQuery
+  object Label1: TLabel
+    Left = 8
+    Height = 17
+    Top = 24
+    Width = 51
+    Caption = 'Add URL'
+  end
+  object URLEdit: TEdit
+    Left = 8
+    Height = 25
+    Top = 48
+    Width = 152
+    TabOrder = 0
+    OnKeyDown = URLEditKeyDown
+  end
+end
