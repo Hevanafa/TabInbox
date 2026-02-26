@@ -22,6 +22,7 @@ type
     Label1: TLabel;
     procedure AcceptButtonClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure FormShow(Sender: TObject);
     procedure URLEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
 
@@ -49,16 +50,20 @@ end;
 
 procedure TForm2.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  { canclose := false;
-  hide }
+  if ModalResult <> mrOK then
+    ModalResult := mrCancel;
+
   CanClose := true
+end;
+
+procedure TForm2.FormShow(Sender: TObject);
+begin
 end;
 
 procedure TForm2.AcceptButtonClick(Sender: TObject);
 begin
-  ModalResult := mrOK;
-  setURL(URLEdit.text);
-  close
+  { ModalResult := mrOK; } { This is already set in the designer view }
+  setURL(URLEdit.text)
 end;
 
 end.

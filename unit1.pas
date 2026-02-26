@@ -123,7 +123,7 @@ var
 begin
   try
     fAddUrl := TForm2.Create(Self);
-    fAddUrl.ShowModal;
+    if fAddUrl.ShowModal <> mrOK then exit;
 
     clearLog;
     writeLog(getURL);

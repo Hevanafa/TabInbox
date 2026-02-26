@@ -13,6 +13,7 @@ object Form2: TForm2
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   OnCloseQuery = FormCloseQuery
+  OnShow = FormShow
   Position = poOwnerFormCenter
   object Label1: TLabel
     Left = 8
@@ -35,6 +36,7 @@ object Form2: TForm2
     Top = 80
     Width = 75
     Caption = 'Accept'
+    ModalResult = 1
     TabOrder = 1
     OnClick = AcceptButtonClick
   end
