@@ -17,8 +17,10 @@ type
   { TForm2 }
 
   TForm2 = class(TForm)
+    AcceptButton: TButton;
     URLEdit: TEdit;
     Label1: TLabel;
+    procedure AcceptButtonClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure URLEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
@@ -50,6 +52,13 @@ begin
   { canclose := false;
   hide }
   CanClose := true
+end;
+
+procedure TForm2.AcceptButtonClick(Sender: TObject);
+begin
+  ModalResult := mrOK;
+  setURL(URLEdit.text);
+  close
 end;
 
 end.

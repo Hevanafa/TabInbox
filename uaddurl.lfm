@@ -3,6 +3,8 @@ object Form2: TForm2
   Height = 124
   Top = 250
   Width = 172
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Form2'
   ClientHeight = 124
   ClientWidth = 172
@@ -11,6 +13,7 @@ object Form2: TForm2
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   OnCloseQuery = FormCloseQuery
+  Position = poOwnerFormCenter
   object Label1: TLabel
     Left = 8
     Height = 17
@@ -25,5 +28,14 @@ object Form2: TForm2
     Width = 152
     TabOrder = 0
     OnKeyDown = URLEditKeyDown
+  end
+  object AcceptButton: TButton
+    Left = 85
+    Height = 25
+    Top = 80
+    Width = 75
+    Caption = 'Accept'
+    TabOrder = 1
+    OnClick = AcceptButtonClick
   end
 end
