@@ -52,6 +52,7 @@ var
 implementation
 
 uses
+  LCLType,
   URIParser, fphttpclient, opensslsockets,
   DOM, DOM_HTML, SAX_HTML;
 
@@ -75,8 +76,10 @@ var
   doc: THTMLDocument;
   reader: THTMLReader;
   converter: THTMLToDOMConverter;
-  element: TDOMElement;
+  { element: TDOMElement; }
   stream: TStringStream;
+
+  nodes: TDOMNodeList;
 begin
   { HTMLMemo.Text := fFetchThread.HTMLData; }
 
@@ -88,6 +91,9 @@ begin
   reader.ParseStream(stream);
 
   HTMLMemo.text := doc.Title;
+
+  nodes := doc.GetElementsByTagName('a');
+  HTMLMemo.Lines.Add('href: ' + TDOMElement(nodes[0]).GetAttribute('href'));
 
   stream.free;
   converter.free;
