@@ -8,7 +8,7 @@ interface
 
 uses
   Classes, SysUtils, Forms,
-  Controls, Graphics, Dialogs, StdCtrls,
+  Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, ComCtrls,
   UAppContext, UAddURL;
 
 type
@@ -32,10 +32,10 @@ type
   TForm1 = class(TForm)
     AddURLButton: TButton;
     HTMLMemo: TMemo;
+    ListView1: TListView;
     URLTesterLabel: TLabel;
     TestLabel: TLabel;
     procedure AddURLButtonClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
   private
     fFetchThread: TFetchThread;
 
@@ -60,11 +60,6 @@ uses
 
 { TForm1 }
 
-procedure TForm1.FormCreate(Sender: TObject);
-begin
-
-end;
-
 procedure TForm1.StartFetchThread;
 begin
   HTMLMemo.text := 'Attempting to fetch ' + getURL;
@@ -76,10 +71,10 @@ var
   doc: THTMLDocument;
   reader: THTMLReader;
   converter: THTMLToDOMConverter;
-  { element: TDOMElement; }
   stream: TStringStream;
-
   nodes: TDOMNodeList;
+
+  item: TListItem;
 begin
   { HTMLMemo.Text := fFetchThread.HTMLData; }
 
@@ -94,6 +89,14 @@ begin
 
   nodes := doc.GetElementsByTagName('a');
   HTMLMemo.Lines.Add(format('href: %s', [TDOMElement(nodes[0]).GetAttribute('href')]));
+
+  item := ListView1.Items.Add;
+  with item do begin
+    caption := '';
+    SubItems.add(doc.title);
+    SubItems.Add(getURL);
+    { SubItemImages[]; }
+  end;
 
   stream.free;
   converter.free;

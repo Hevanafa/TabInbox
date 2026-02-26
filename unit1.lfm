@@ -6,7 +6,6 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 240
   ClientWidth = 320
-  OnCreate = FormCreate
   object AddURLButton: TButton
     Left = 8
     Height = 25
@@ -40,5 +39,27 @@ object Form1: TForm1
     )
     ScrollBars = ssBoth
     TabOrder = 1
+  end
+  object ListView1: TListView
+    Left = 8
+    Height = 150
+    Top = 88
+    Width = 250
+    AutoSort = False
+    Columns = <    
+      item
+        Width = 30
+      end    
+      item
+        Caption = 'Title'
+        Width = 100
+      end    
+      item
+        Caption = 'URL'
+        Width = 200
+      end>
+    RowSelect = True
+    TabOrder = 2
+    ViewStyle = vsReport
   end
 end
