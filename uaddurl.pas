@@ -40,14 +40,16 @@ procedure TForm2.URLEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftSta
 begin
   if key = VK_RETURN then begin
     setURL(URLEdit.text);
+    ModalResult := mrOk;
     close
   end;
 end;
 
 procedure TForm2.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  canclose := false;
-  hide
+  { canclose := false;
+  hide }
+  CanClose := true
 end;
 
 end.

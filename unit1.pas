@@ -17,10 +17,11 @@ type
 
   TForm1 = class(TForm)
     Button1: TButton;
+    TestLabel: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    fAddUrl: TForm2;
+
   public
 
   end;
@@ -36,13 +37,21 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  fAddUrl := TForm2.Create(Self);
 
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
+var
+  fAddUrl: TForm2;
 begin
-  fAddUrl.show;
+  try
+    fAddUrl := TForm2.Create(Self);
+    fAddUrl.ShowModal;
+
+    TestLabel.Caption := getURL;
+  finally
+    fAddUrl.free
+  end;
 end;
 
 end.
