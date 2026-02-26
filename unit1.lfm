@@ -8,26 +8,36 @@ object Form1: TForm1
   ClientWidth = 320
   OnCreate = FormCreate
   object Button1: TButton
-    Left = 104
+    Left = 32
     Height = 25
-    Top = 72
+    Top = 32
     Width = 75
     Caption = 'Button1'
     TabOrder = 0
     OnClick = Button1Click
   end
   object TestLabel: TLabel
-    Left = 120
+    Left = 40
     Height = 15
-    Top = 128
+    Top = 80
     Width = 48
     Caption = 'TestLabel'
   end
   object URLTesterLabel: TLabel
-    Left = 128
+    Left = 40
     Height = 15
-    Top = 168
+    Top = 112
     Width = 78
     Caption = 'URLTesterLabel'
+  end
+  object HTMLMemo: TMemo
+    Left = 144
+    Height = 90
+    Top = 32
+    Width = 150
+    Lines.Strings = (
+      'HTMLMemo'
+    )
+    TabOrder = 1
   end
 end
