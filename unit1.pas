@@ -17,6 +17,7 @@ type
 
   TForm1 = class(TForm)
     Button1: TButton;
+    URLTesterLabel: TLabel;
     TestLabel: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -31,6 +32,8 @@ var
 
 implementation
 
+uses URIParser;
+
 {$R *.lfm}
 
 { TForm1 }
@@ -43,6 +46,7 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);
 var
   fAddUrl: TForm2;
+  uri: TUri;
 begin
   try
     fAddUrl := TForm2.Create(Self);
@@ -52,6 +56,13 @@ begin
   finally
     fAddUrl.free
   end;
+
+  uri := ParseURI(getURL);
+  if (uri.protocol = 'https') and (uri.host <> '') then
+    URLTesterLabel.Caption := 'Valid URL'
+  else
+    URLTesterLabel.Caption := 'Not a valid URL!';
+
 end;
 
 end.

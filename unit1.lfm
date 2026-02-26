@@ -23,4 +23,11 @@ object Form1: TForm1
     Width = 48
     Caption = 'TestLabel'
   end
+  object URLTesterLabel: TLabel
+    Left = 128
+    Height = 15
+    Top = 168
+    Width = 78
+    Caption = 'URLTesterLabel'
+  end
 end
