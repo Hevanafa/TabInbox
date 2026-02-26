@@ -30,11 +30,11 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button1: TButton;
+    AddURLButton: TButton;
     HTMLMemo: TMemo;
     URLTesterLabel: TLabel;
     TestLabel: TLabel;
-    procedure Button1Click(Sender: TObject);
+    procedure AddURLButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     fFetchThread: TFetchThread;
@@ -51,7 +51,9 @@ var
 
 implementation
 
-uses URIParser, fphttpclient, opensslsockets;
+uses
+  URIParser, fphttpclient, opensslsockets,
+  DOM, DOM_HTML, SAX_HTML;
 
 {$R *.lfm}
 
@@ -69,11 +71,28 @@ begin
 end;
 
 procedure TForm1.LoadHTMLMemo;
+var
+  doc: THTMLDocument;
+  reader: THTMLReader;
+  converter: THTMLToDOMConverter;
+  element: TDOMElement;
 begin
-  HTMLMemo.Text := fFetchThread.HTMLData;
+  { HTMLMemo.Text := fFetchThread.HTMLData; }
+
+  doc := THTMLDocument.create;
+  reader := THTMLReader.create;
+  converter := THTMLToDOMConverter.create(reader, doc);
+
+  { reader.Parse( TODO: fFetchThread.HTMLData to SAXString ); }
+
+  HTMLMemo.text := doc.Title;
+
+  converter.free;
+  reader.free;
+  doc.free
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.AddURLButtonClick(Sender: TObject);
 var
   fAddUrl: TForm2;
   uri: TUri;
