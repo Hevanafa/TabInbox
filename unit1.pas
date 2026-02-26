@@ -31,13 +31,14 @@ type
 
   TForm1 = class(TForm)
     AddURLButton: TButton;
-    HTMLMemo: TMemo;
+    LoggerMemo: TMemo;
     ListView1: TListView;
-    URLTesterLabel: TLabel;
-    TestLabel: TLabel;
     procedure AddURLButtonClick(Sender: TObject);
   private
     fFetchThread: TFetchThread;
+
+    procedure ClearLog;
+    procedure WriteLog(const msg: string);
 
     procedure StartFetchThread;
     procedure LoadHTMLMemo;
@@ -62,7 +63,7 @@ uses
 
 procedure TForm1.StartFetchThread;
 begin
-  HTMLMemo.text := 'Attempting to fetch ' + getURL;
+  LoggerMemo.text := 'Attempting to fetch ' + getURL;
   fFetchThread := TFetchThread.create(@LoadHTMLMemo);
 end;
 
@@ -76,7 +77,7 @@ var
 
   item: TListItem;
 begin
-  { HTMLMemo.Text := fFetchThread.HTMLData; }
+  { LoggerMemo.Text := fFetchThread.HTMLData; }
 
   doc := THTMLDocument.create;
   reader := THTMLReader.create;
@@ -85,10 +86,10 @@ begin
   stream := TStringStream.create(fFetchThread.HTMLData);
   reader.ParseStream(stream);
 
-  HTMLMemo.text := TTranslateString(doc.Title);
+  LoggerMemo.text := TTranslateString(doc.Title);
 
   nodes := doc.GetElementsByTagName('a');
-  HTMLMemo.Lines.Add(format('href: %s', [TDOMElement(nodes[0]).GetAttribute('href')]));
+  LoggerMemo.Lines.Add(format('href: %s', [TDOMElement(nodes[0]).GetAttribute('href')]));
 
   item := ListView1.Items.Add;
   with item do begin
@@ -104,6 +105,16 @@ begin
   doc.free
 end;
 
+procedure TForm1.ClearLog;
+begin
+  LoggerMemo.clear
+end;
+
+procedure TForm1.WriteLog(const msg: string);
+begin
+  LoggerMemo.lines.add(msg)
+end;
+
 procedure TForm1.AddURLButtonClick(Sender: TObject);
 var
   fAddUrl: TForm2;
@@ -114,7 +125,8 @@ begin
     fAddUrl := TForm2.Create(Self);
     fAddUrl.ShowModal;
 
-    TestLabel.Caption := getURL;
+    clearLog;
+    writeLog(getURL);
   finally
     fAddUrl.free
   end;
@@ -122,11 +134,11 @@ begin
   uri := ParseURI(getURL);
   isValid := (uri.protocol = 'https') and (uri.host <> '');
   if isValid then
-    URLTesterLabel.Caption := 'Valid URL'
+    writeLog('Valid URL')
   else
-    URLTesterLabel.Caption := 'Not a valid URL!';
+    writeLog('Not a valid URL!');
 
-  startFetchThread
+  if isValid then startFetchThread
 end;
 
 { TFetchThread }
