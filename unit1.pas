@@ -76,6 +76,7 @@ var
   reader: THTMLReader;
   converter: THTMLToDOMConverter;
   element: TDOMElement;
+  stream: TStringStream;
 begin
   { HTMLMemo.Text := fFetchThread.HTMLData; }
 
@@ -83,10 +84,12 @@ begin
   reader := THTMLReader.create;
   converter := THTMLToDOMConverter.create(reader, doc);
 
-  { reader.Parse( TODO: fFetchThread.HTMLData to SAXString ); }
+  stream := TStringStream.create(fFetchThread.HTMLData);
+  reader.ParseStream(stream);
 
   HTMLMemo.text := doc.Title;
 
+  stream.free;
   converter.free;
   reader.free;
   doc.free
