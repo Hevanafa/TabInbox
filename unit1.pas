@@ -90,10 +90,10 @@ begin
   stream := TStringStream.create(fFetchThread.HTMLData);
   reader.ParseStream(stream);
 
-  HTMLMemo.text := doc.Title;
+  HTMLMemo.text := TTranslateString(doc.Title);
 
   nodes := doc.GetElementsByTagName('a');
-  HTMLMemo.Lines.Add('href: ' + TDOMElement(nodes[0]).GetAttribute('href'));
+  HTMLMemo.Lines.Add(format('href: %s', [TDOMElement(nodes[0]).GetAttribute('href')]));
 
   stream.free;
   converter.free;
