@@ -14,9 +14,9 @@ uses
 
 type
 
-  { TAddURLForm }
+  { TForm2 }
 
-  TAddURLForm = class(TForm)
+  TForm2 = class(TForm)
     URLEdit: TEdit;
     Label1: TLabel;
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -28,21 +28,23 @@ type
   end;
 
 var
-  Form2: TAddURLForm;
+  Form2: TForm2;
 
 implementation
 
 {$R *.lfm}
 
-{ TAddURLForm }
+{ TForm2 }
 
-procedure TAddURLForm.URLEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TForm2.URLEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  if key = VK_RETURN then setURL(URLEdit.text);
-  close
+  if key = VK_RETURN then begin
+    setURL(URLEdit.text);
+    close
+  end;
 end;
 
-procedure TAddURLForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+procedure TForm2.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   canclose := false;
   hide

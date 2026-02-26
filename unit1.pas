@@ -20,7 +20,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    fAddUrl: TAddURLForm;
+    fAddUrl: TForm2;
   public
 
   end;
@@ -36,7 +36,7 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  fAddUrl := TAddURLForm.Create(Self);
+  fAddUrl := TForm2.Create(Self);
 
 end;
 
